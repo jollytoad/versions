@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<title>Versions Demo</title>
+	
+	<!-- Old jQuery and it's plugins -->
+	<script type="text/javascript" src="../jquery/jquery-1.2.6.js"></script>
+	<script type="text/javascript" src="test-plugin-for-old.js"></script>
+
+	<!-- Include the Versions helper -->
+	<script type="text/javascript" src="versions.js"></script>
+
+	<!-- Include a new jQuery -->
+	<script type="text/javascript" src="../jquery/jquery.js"></script>
+	<script type="text/javascript">
+		Versions.debug = true;
+		Versions.add('jquery', 'latest', jQuery.noConflict(true));
+		Versions.add('jquery', 'default', jQuery);
+	</script>
+	
+	<!-- Load a plugin into the new jQuery -->
+	<script type="text/javascript">jQuery = Versions.use('jquery', 'latest');</script>
+	<script type="text/javascript" src="test-plugin-for-new.js"></script>
+	<script type="text/javascript">jQuery = Versions.use('jquery', 'default');</script>
+
+	<!-- Test it all worked -->
+	<script type="text/javascript">
+		// We should be using the default jQuery here
+		jQuery(function($) {
+		
+			$('#old1').testVersions();
+			
+			// Try using the new jQuery
+			Versions.use('jquery', 'latest')('#new2').testVersions();
+		});
+					
+		// Now use the new jQuery, fetched directly from Versions 
+		Versions.use('jquery', 'latest')(function($) {
+		
+			$('#new1').testVersions();
+			
+			// Try using a non-existent version of jQuery
+			Versions.use('jquery', 'broken')('#old2').testVersions();	// ERROR HERE
+		});
+	</script>
+		
+</head>
+<body>
+	<h1>Deliberately Broken Versions Demo</h1>
+	
+	<h2>Old version:</h2>
+	<div id="old1"></div>
+	<div id="old2"></div>
+	
+	<h2>New version:</h2>
+	<div id="new1"></div>
+	<div id="new2"></div>
+
+	<hr />
+	<p>
+		<a href="http://validator.w3.org/check?uri=referer"><img
+			src="http://www.w3.org/Icons/valid-xhtml10"
+			alt="Valid XHTML 1.0 Strict" height="31" width="88" /></a>
+	</p>
+</body>
+</html>

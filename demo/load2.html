@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<title>Multi-jQuery globalEval Demo 2</title>
+	
+	<!-- Old jQuery -->
+	<script type="text/javascript" src="../jquery/jquery-1.2.6.js"></script>
+	<script type="text/javascript">
+		jQuery(function() {
+			jQuery('#test2').click(function() {
+				jQuery('#version-global').text(window.jQuery.fn.jquery);
+				jQuery('#version-global2').text(window.$.fn.jquery);
+			});
+		});
+	</script>
+	
+	<!-- Include a new jQuery -->
+	<script type="text/javascript" src="jquery-patched-globalEval.js"></script>
+	<script type="text/javascript">
+		(function($) {
+		
+			$(function() {
+				$('#test1').click(function() {
+					$('#container').load('show-jquery-version.html');
+				});
+			});
+			
+		})( jQuery.noConflict(true) );
+	</script>
+</head>
+<body>
+	<button id="test1">Test1</button>
+	
+	<div id="container"></div>
+	
+	<p>Expect to see 1.3.3pre for all results.</p>
+
+	<hr />
+	
+	<button id="test2">Test2</button>
+	<div>
+		<p>
+			<span>window.jQuery version:</span>
+			<span id="version-global"></span>
+		</p>
+		<p>
+			<span>window.$ version:</span>
+			<span id="version-global2"></span>
+		</p>
+
+	</div>
+	
+	<p>Expect to see 1.2.6</p>
+</body>
+

@@ -1,0 +1,33 @@
+<div>
+	<p>
+		<span>window.jQuery seen by inline script:</span>
+		<span id="version-inline"></span>
+	</p>
+	<p>
+		<span>window.jQuery seen by external script:</span>
+		<span id="version-external"></span>
+	</p>
+	<p>
+		<span>window.jQuery seen by remote script:</span>
+		<span id="version-remote"></span>
+	</p>
+	<p>
+		<span>window.$ seen by remote script:</span>
+		<span id="version-remote2"></span>
+	</p>
+</div>
+
+<script type="text/javascript">
+(function($) {
+	$('#version-inline').text($.fn.jquery);
+})(jQuery);
+</script>
+
+<script type="text/javascript" src="http://jollytoad.googlepages.com/remote-version.js"></script>
+
+<script type="text/javascript" src="show-jquery-version.js"></script>
+
+<!-- script type="text/javascript" src="http://jollytoad.googlepages.com/non-existent.js"></script -->
+
+<script type="text/javascript" src="http://jollytoad.googlepages.com/remote-version2.js"></script>
+
